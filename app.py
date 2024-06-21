@@ -17,16 +17,16 @@ def eat_memory(offset: int):
     if offset > 10000:
         offset = 10000
 
-    # allocate large amount of data
-    data_vector = [i+1 for i in range(1000 * offset)]
+    # allocate array to hold large amount of data
+    data_vector = []
     # run some operation
-    result = sum(data_vector)
-    # block the thread for 1-5s
-    time.sleep(random.randint(1, 5))
+    for i in range(1000 * offset):
+        op = random.randint(20, 30) * random.randint(20, 30)
+        data_vector.append(op)
 
     end = time.time()
-    return app.make_response({"data_size": sys.getsizeof(data_vector) + sys.getsizeof(result),
-                              "cpu_time": end-start})
+    return app.make_response({"data_size": sys.getsizeof(data_vector),
+                              "cpu_time": end - start})
 
 
 if __name__ == "__main__":
